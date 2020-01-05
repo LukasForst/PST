@@ -24,3 +24,16 @@ no shutdown
 
 ## BGP
 
+* set up bgp routing
+```bash
+# enable routing bgp for router with `AS 100`
+router bgp 100
+# add neighbor on IP with `AS 300`
+neighbor 192.168.1.6 remote-as 300
+# set Loop IP on current machine
+network 201.0.0.0
+``` 
+* show bgp neighbors
+```bash
+show ip bgp neighbors
+```
