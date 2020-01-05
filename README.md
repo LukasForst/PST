@@ -20,7 +20,10 @@ ip addr 192.168.1.1 255.255.255.252
 # enable the interface
 no shutdown
 ```
-* 
+* show routing tables
+```bash
+show ip route
+```
 
 ## BGP
 
@@ -37,3 +40,17 @@ network 201.0.0.0
 ```bash
 show ip bgp neighbors
 ```
+* show bgp routing tables
+```bash
+show ip bgp
+```
+* remove private AS numbers from AS_Path configuration from Customer -> middle router striping from all other routers
+ ```bash
+ # on middle router and IP is IP of all other routers except the customer
+neighbor 192.168.1.5 remove-private-as
+ ```
+* clear BGP records
+```bash
+clear ip bgp *
+``` 
+
