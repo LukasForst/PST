@@ -100,10 +100,25 @@ neighbor 10.0.0.1 distribute-list 1 out
  SanJose2(config-router)#network 192.168.1.4 mask 255.255.255.252 
  ```
 
-Configure clients 
+Enable bgp on the client.
 ```
 SanJose3(config)#router bgp 100 
-sSanJose3(config-router)#neighbor 172.24.1.17 remote-as 100 
+SanJose3(config-router)#neighbor 172.24.1.17 remote-as 100 
+```
+
+Connect both clients through the bgp reflector
+```
+SanJose2(config)#router bgp 100 
+SanJose2(config-router)#neighbor 192.168.1.5 route-reflector-client 
+SanJose2(config-router)#neighbor 172.24.1.18 route-reflector-client 
+```
+
+Inject new network (like propagate information from this network to the greater BGP)
+```
+SanJose3(config)#int lo0 
+SanJose3(config-if)#ip address 199.9.9.1 255.255.255.0 
+SanJose3(config)#router bgp 100 
+SanJose3(config-router)#network 199.9.9.0 
 ```
 ## RIPv2
 Distance vector routing protocol - hop counts as routing metric. Implements limit on hops.
