@@ -15,12 +15,13 @@ Interní multicastový směrovací protokol, který umožňuje nalezení optimá
 
 ### Lab 7-1 Implementing IGMP and IGMP Snooping
 *In this example R1 receives multicast packets, R2 sends them and switch SW1 is between them*
+
 *DEBUG: To see debug logs:*
 ```
 R1# debug ip igmp
 R1# debug ip packet
 ```
-
+---
 To join a group receiveing multicast 229.7.7.7 on fa0/0
 ```
 R1(config)# interface fastethernet 0/0 
