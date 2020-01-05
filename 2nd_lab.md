@@ -97,13 +97,54 @@ R1(config-if)# ip pim dense-mode
 ...
 ```
 
+##### Debug
+Display the multicast routing table on each router with: 
+```
+R1# show ip mroute
+```
+
 [In the lab PDF](tutorials/2%20-%20IP%20multicast%2C%20IPv6/CCNP1_lab_7_2_en.pdf), one can find **MANY** print/show commands to verify how the topology actuall works - starting in Step4.
 
 
+### Lab 7-3 Routing IP Multicast with PIM Sparse Mode ([PDF](tutorials/2%20-%20IP%20multicast%2C%20IPv6/CCNP1_lab_7_3_en.pdf))
 
+As before, the unicast routing must be working, so **firstly setup EIGRP (or OSPF)** and enable multicast routing on each router:
+```
+R(config)# ip multicast-routing
+```
 
+PIM sparse mode operates with Rendezvous point (RP), which is statically configured and which sould be in the middle of the topology. It "knows" all the multicast sources (but the RP router itself does not have to be in multicast communication tree, if it is not part of the shortest path)
 
+To set Address `192.168.1.1` as the RP for multicast group `232.32.32.32`, run this on every router in the topology:
+```
+R1# conf t
+R1(config)# access-list 32 permit 232.32.32.32
+R1(config)# ip pim rp-address 192.168.1.1 32
+R2# conf t
+...
+```
 
+Finally, enable PIM sparse-mode on every interface involved in the communication:
+```
+R1(config)# interface lo1
+R1(config-if)# ip pim sparse-mode
+R1(config-if)# interface fa0/0
+R1(config-if)# ip pim sparse-mode
+...
+```
+
+##### Debug
+Again, to display the multicast routing table on each router: 
+```
+R1# show ip mroute
+```
+
+Issue the show ip pim neighbors command to display all adjacent PIM routers:
+```
+R1# show ip pim neighbor
+```
+
+[In the lab PDF](tutorials/2%20-%20IP%20multicast%2C%20IPv6/CCNP1_lab_7_3_en.pdf), one can find **MANY** print/show commands to verify how the topology actually works - starting in Step4.
 
 
 
