@@ -147,5 +147,3 @@ R1# show ip pim neighbor
 [In the lab PDF](tutorials/2%20-%20IP%20multicast%2C%20IPv6/CCNP1_lab_7_3_en.pdf), one can find **MANY** print/show commands to verify how the topology actually works - starting in Step4.
 
 
-
-TODO
