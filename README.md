@@ -158,3 +158,15 @@ SanJose1(config-router)no auto-summary
 SanJose1(config-router)network 192.168.1.0 
 ```
 
+### Multiple ISPs
+Connecting to multiple ISPs - if the `show ip route` produces
+```
+Gateway of last resort is not set
+```
+And the router is border for company, one must set the - primary and secondary routes.
+```bash
+# primary
+ip route 0.0.0.0 0.0.0.0 10.0.0.1 210 
+# secondary
+ip route 0.0.0.0 0.0.0.0 172.16.0.1 220 
+```
