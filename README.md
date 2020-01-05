@@ -120,6 +120,30 @@ SanJose3(config-if)#ip address 199.9.9.1 255.255.255.0
 SanJose3(config)#router bgp 100 
 SanJose3(config-router)#network 199.9.9.0 
 ```
+
+
+### EIGRP
+External routing protocol
+
+Both routers must join same network - so use same commands.
+```
+(config)#router eigrp 64512 
+(config-router)#no auto-summary 
+(config-router)#network 172.16.0.0 
+```
+
+### IBGP
+Iternal routing protocol in the network.
+
+```
+SanJose1(config)#router bgp 64512 
+SanJose1(config-router)#neighbor 172.16.32.1 remote-as 64512 
+SanJose1(config-router)#neighbor 172.16.32.1 update-source lo0 
+```
+
+
+---
+
 ## RIPv2
 Distance vector routing protocol - hop counts as routing metric. Implements limit on hops.
 In most networking environments, RIP is not the preferred choice for routing as its time to converge and scalability are poor compared to EIGRP, OSPF, or IS-IS. However, it is easy to configure, because RIP does not require any parameters, unlike other protocols.
@@ -133,3 +157,4 @@ SanJose1(config-router)no auto-summary
 # all network adapters if ot stated something else
 SanJose1(config-router)network 192.168.1.0 
 ```
+
