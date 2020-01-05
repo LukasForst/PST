@@ -55,6 +55,7 @@ router bgp 300
 # IP of all other routers except the customer
 neighbor 192.168.1.5 remove-private-as
 ```
+
 * clear BGP records
 ```bash
 clear ip bgp *
@@ -86,8 +87,34 @@ router bgp 100
 # all outgoing bgp requests to neighbor 10.0.0.1 are filtered according the list 1
 neighbor 10.0.0.1 distribute-list 1 out
 ```
+### BGP reflector
+ A route reflector allows a topology to get around the IBGP limitation of having to have a full mesh. To do this, a route reflector specifies its neighbors as route reflector clients. When a route reflector receives an update from a route reflector client, it can pass it on to its other clients.
+
+ Configure SanJose2 as a reflector.
+ ```
+ SanJose2(config)#router bgp 100 
+ SanJose2(config-router)#neighbor 192.168.1.5 remote-as 100 
+ SanJose2(config-router)#neighbor 172.24.1.18 remote-as 100 
+ SanJose2(config-router)#network 200.100.50.0 
+ SanJose2(config-router)#network 172.24.1.0 mask 255.255.255.0 
+ SanJose2(config-router)#network 192.168.1.4 mask 255.255.255.252 
+ ```
+
+Configure clients 
+```
+SanJose3(config)#router bgp 100 
+sSanJose3(config-router)#neighbor 172.24.1.17 remote-as 100 
+```
 ## RIPv2
 Distance vector routing protocol - hop counts as routing metric. Implements limit on hops.
 In most networking environments, RIP is not the preferred choice for routing as its time to converge and scalability are poor compared to EIGRP, OSPF, or IS-IS. However, it is easy to configure, because RIP does not require any parameters, unlike other protocols.
 RIP uses the User Datagram Protocol (UDP) as its transport protocol, and is assigned the reserved port number 520. [source: Wiki](https://en.wikipedia.org/wiki/Routing_Information_Protocol)
 
+* enable RIPv2
+```bash
+SanJose1(config)router rip 
+SanJose1(config-router)version 2 
+SanJose1(config-router)no auto-summary 
+# all network adapters if ot stated something else
+SanJose1(config-router)network 192.168.1.0 
+```
