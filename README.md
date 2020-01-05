@@ -86,4 +86,8 @@ router bgp 100
 # all outgoing bgp requests to neighbor 10.0.0.1 are filtered according the list 1
 neighbor 10.0.0.1 distribute-list 1 out
 ```
+## RIPv2
+Distance vector routing protocol - hop counts as routing metric. Implements limit on hops.
+In most networking environments, RIP is not the preferred choice for routing as its time to converge and scalability are poor compared to EIGRP, OSPF, or IS-IS. However, it is easy to configure, because RIP does not require any parameters, unlike other protocols.
+RIP uses the User Datagram Protocol (UDP) as its transport protocol, and is assigned the reserved port number 520. [source: Wiki](https://en.wikipedia.org/wiki/Routing_Information_Protocol)
 
