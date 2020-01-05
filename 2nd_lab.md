@@ -21,7 +21,7 @@ Interní multicastový směrovací protokol, který umožňuje nalezení optimá
 R1# debug ip igmp
 R1# debug ip packet
 ```
-
+---
 To join a group receiveing multicast 229.7.7.7 on fa0/0
 ```
 R1(config)# interface fastethernet 0/0 
