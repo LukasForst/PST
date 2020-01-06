@@ -141,7 +141,31 @@ SanJose1(config-router)#neighbor 172.16.32.1 remote-as 64512
 SanJose1(config-router)#neighbor 172.16.32.1 update-source lo0 
 ```
 
+If multiple pathways to the neighbor exist, the router can use any IP interface to communicate by way of BGP -> `update-source lo0` -> use loop0 for TCP connections
 
+### EBGP
+External routing from your network out
+```bash
+# run bgp AS 200
+ISP(config)router bgp 200 
+ISP(config-router)neighbor 192.168.1.6 remote-as 64512 
+ISP(config-router)neighbor 192.168.1.2 remote-as 64512 
+# use network defined on Loop0
+ISP(config-router)network 192.168.100.0
+```
+
+client configuration on both it is the same config
+```bash
+# for 172.16 always use interface null0
+# also the IP is the subnet of the internal network that runs IBGP
+SanJose1(config)ip route 172.16.0.0 255.255.0.0 null0 
+# bgp settings
+SanJose1(config)router bgp 64512 
+# set up ISP neighbor
+SanJose1(config-router)neighbor 192.168.1.5 remote-as 200 
+# use IP of whole network (so one router has 172.16.1 and second 172.16.10 -> use 172.16.0.0)
+SanJose1(config-router)network 172.16.0.0 
+```
 ---
 
 ## RIPv2
